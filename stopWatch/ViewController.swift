@@ -10,22 +10,40 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var countLabel: UILabel!
-    
     var timer = NSTimer()
-    
     var count = 0
     
-    func result() {
+    func updateTime() {
         count++
         countLabel.text = "\(count)"
     }
 
+    
+    
+    @IBOutlet weak var countLabel: UILabel!
+    
+    @IBAction func stop(sender: AnyObject) {
+        
+        timer.invalidate()
+        count = 0
+        countLabel.text = "\(count)"
+    }
+    
+    @IBAction func pause(sender: AnyObject) {
+        
+        timer.invalidate()
+        
+    }
+    
+    @IBAction func play(sender: AnyObject) {
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("updateTime"), userInfo: nil, repeats: true)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("result"), userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
